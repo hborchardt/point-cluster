@@ -1,5 +1,5 @@
 {
-  "name": "point-cluster",
+  "name": "@plotly/point-cluster",
   "version": "3.1.8",
   "description": "Fast nd point clustering.",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dy/point-cluster.git"
+    "url": "git://github.com/plotly/point-cluster.git"
   },
   "keywords": [
     "snap-points-2d",
