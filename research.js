@@ -4,7 +4,7 @@
 const t = require('tape');
 const random = require('gauss-random')
 const bitsf64 = require('math-float64-from-bits')
-const f64bits = require('math-float64-bits')
+// const f64bits = require('math-float64-bits')
 
 
 t('packing 1e6 array', t => {
@@ -36,7 +36,7 @@ t('float64 packing', t => {
 	// ui8[7] = 0xff
 	// ui16[2] = 0x1000
 	ui32[1] = 0x00ff0000 & 0x01 << 16 | 0x0000ffff & 0xffff
-	console.log(f64[0], f64bits(f64[0]))
+	console.log(f64[0] /* , f64bits(f64[0]) */)
 
 	let sign = '0' // ignore sign
 	let exp = '00000000000' // write levels as exponent

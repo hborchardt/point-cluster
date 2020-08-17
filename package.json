@@ -56,7 +56,6 @@
     "bubleify": "^2.0.0",
     "canvas-fit": "^1.5.0",
     "gauss-random": "^1.0.1",
-    "math-float64-bits": "^1.0.1",
     "math-float64-from-bits": "^1.0.0",
     "snap-points-2d": "^3.2.0",
     "tape": "^4.8.0"
