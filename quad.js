@@ -6,7 +6,6 @@
 
 'use strict'
 
-const search = require('binary-search-bounds')
 const clamp = require('clamp')
 const rect = require('parse-rect')
 const getBounds = require('array-bounds')
@@ -208,13 +207,6 @@ module.exports = function cluster (srcPoints, options) {
 		}
 		maxLevel = Math.min(maxLevel, levels.length)
 
-		// return levels of details
-		if (options.lod) {
-			return lod(nminX, nminY, nmaxX, nmaxY, maxLevel)
-		}
-
-
-
 		// do selection ids
 		let selection = []
 
@@ -274,49 +266,6 @@ module.exports = function cluster (srcPoints, options) {
 		}
 
 		return selection
-	}
-
-	// get range offsets within levels to render lods appropriate for zoom level
-	// TODO: it is possible to store minSize of a point to optimize neede level calc
-	function lod (lox, loy, hix, hiy, maxLevel) {
-		let ranges = []
-
-		for (let level = 0; level < maxLevel; level++) {
-			let levelGroups = groups[level]
-			let from = offsets[level][0]
-
-			let levelGroupStart = group(lox, loy, level)
-			let levelGroupEnd = group(hix, hiy, level)
-
-			// FIXME: utilize sublevels to speed up search range here
-			let startOffset = search.ge(levelGroups, levelGroupStart)
-			let endOffset = search.gt(levelGroups, levelGroupEnd, startOffset, levelGroups.length - 1)
-
-			ranges[level] = [startOffset + from, endOffset + from]
-		}
-
-		return ranges
-	}
-
-	// get group id closest to the x,y coordinate, corresponding to a level
-	function group (x, y, level) {
-		let group = 1
-
-		let cx = .5, cy = .5
-		let diam = .5
-
-		for (let i = 0; i < level; i++) {
-			group <<= 2
-
-			group += x < cx ? (y < cy ? 0 : 1) : (y < cy ? 2 : 3)
-
-			diam *= .5
-
-			cx += x < cx ? -diam : diam
-			cy += y < cy ? -diam : diam
-		}
-
-		return group
 	}
 }
 
