@@ -72,6 +72,8 @@ module.exports = function cluster (srcPoints, options) {
 	// sort points
 	sort(0, 0, 1, ids, 0, 1)
 
+	// delete last sublevel offset array, because it is a huge unused array of nulls
+	delete sublevels[sublevels.length - 1]
 
 	// return reordered ids with provided methods
 	// save level offsets in output buffer
@@ -237,6 +239,11 @@ module.exports = function cluster (srcPoints, options) {
 
 				if ( px >= minX && px <= maxX && py >= minY && py <= maxY ) {selection.push(id)
 				}
+			}
+
+			if (level + 1 === maxLevel) {
+				// no more subsections
+				return;
 			}
 
 			// for every subsection do select
